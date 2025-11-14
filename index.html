@@ -97,7 +97,7 @@
     const nameContainer = document.getElementById('name-container');
     const gameControls = document.getElementById('game-controls');
 
-    // ТВОЙ Web App URL
+    // URL твого Web App
     const scriptURL = "https://script.google.com/macros/s/AKfycbzaQ_wDTro6L8ymZi6vqly0mC0ZOCpMxb4EJM9tSrgVzWMuGcnBvGehWRH5cbJHQbKW/exec";
 
     let sequence = [];
@@ -188,22 +188,22 @@
       sendResult();
     }
 
+    // ОНОВЛЕНА функція відправки результату БЕЗ заголовків і з no-cors
     function sendResult() {
       const name = nameInput.value.trim() || "Без імені";
 
-      console.log("Sending:", { name, correct: correctCount });
+      const payload = {
+        name: name,
+        correct: correctCount
+      };
+
+      console.log("Sending:", payload);
 
       fetch(scriptURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          correct: correctCount
-        })
-      })
-        .then(r => r.text())
-        .then(t => console.log("Server response:", t))
-        .catch(err => console.error("Error sending:", err));
+        mode: "no-cors",
+        body: JSON.stringify(payload)
+      });
     }
 
     startBtn.addEventListener('click', () => {
@@ -230,4 +230,3 @@
   </script>
 </body>
 </html>
-
