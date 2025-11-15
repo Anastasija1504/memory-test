@@ -189,22 +189,24 @@
     }
 
     // ОНОВЛЕНА функція відправки результату БЕЗ заголовків і з no-cors
-    function sendResult() {
-      const name = nameInput.value.trim() || "Без імені";
+    ffunction sendResult() {
+  const name = nameInput.value.trim() || "Без імені";
 
-      const payload = {
-        name: name,
-        correct: correctCount
-      };
+  const payload = {
+    name: name,
+    correct: correctCount
+  };
 
-      console.log("Sending:", payload);
+  console.log("Sending:", payload);
 
-      fetch(scriptURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(payload)
-      });
-    }
+  fetch(scriptURL, {
+    method: "POST",
+    mode: "no-cors",      // важливо
+    body: JSON.stringify(payload) // без headers!
+  });
+}
+
+
 
     startBtn.addEventListener('click', () => {
       const name = nameInput.value.trim();
@@ -230,3 +232,4 @@
   </script>
 </body>
 </html>
+
